@@ -1,0 +1,23 @@
+version: '3'
+services:
+
+  rabbitmq:
+    image: rabbitmq
+    container_name: rabbitmq
+    networks:
+      - rabbitnode
+    
+  app:
+    build: .
+    ports:
+      - "3001:3000"
+    environment:
+      - PORT=3000
+    depends_on:
+      - rabbitmq
+    networks:
+      - rabbitnode
+
+networks:
+  rabbitnode:
+    driver: bridge
